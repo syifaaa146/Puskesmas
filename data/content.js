@@ -86,7 +86,7 @@ window.SITE_CONTENT = {
     deskripsi:
       "UPTD Puskesmas Kutawaluya merupakan Unit Pelaksana Teknis Daerah di bawah Dinas Kesehatan Kabupaten Karawang yang menyelenggarakan pelayanan kesehatan tingkat pertama bagi masyarakat di wilayah Kecamatan Kutawaluya. Puskesmas Kutawaluya berlokasi di Desa Sampalan, Kecamatan Kutawaluya, Kabupaten Karawang. Dalam pelaksanaan pelayanan kesehatan, Puskesmas Kutawaluya memberikan pelayanan kesehatan perorangan sekaligus melaksanakan berbagai upaya kesehatan masyarakat secara terpadu.",
     highlights: [
-      { icon: "fa-map-location-dot", text: "7 Wilayah Kerja UPTD Puskesmas Kutawaluya (Sukamulya, Waluya, Sindangmulya, Sindangkarya, Sindangsari, Sindangmukti, Sampalan)" },
+      { icon: "fa-map-location-dot", text: "7 Wilayah Kerja UPTD Puskesmas Kutawaluya (Mulyajaya, Waluya, Sindangmulya, Sindangkarya, Sindangsari, Sindangmukti, Sampalan)" },
       { icon: "fa-house-medical", text: "Didukung oleh Posyandu, Posbindu, dan jejaring kesehatan lainnya" },
       { icon: "fa-user-doctor", text: "Didukung 60 tenaga kesehatan dan tenaga penunjang profesional" },
     ],
