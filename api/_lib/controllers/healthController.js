@@ -69,4 +69,32 @@ const getHealthStatus = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { uploadHealthData, getVisits, getDiseases, getSummary, getHealthStatus };
+const listSources = asyncHandler(async (req, res) => {
+  const data = await healthService.listUploadedSources();
+  return sendSuccess(res, { data });
+});
+
+const deleteSource = asyncHandler(async (req, res) => {
+  const { kategori, source_file: sourceFile, jenis_data: jenisData } = req.body;
+
+  if (!kategori || !sourceFile) {
+    throw new ApiError("kategori dan source_file wajib diisi.", 400);
+  }
+
+  const result = await healthService.deleteBySource({ kategori, sourceFile, jenisData });
+
+  return sendSuccess(res, {
+    message: `Berhasil menghapus ${result.deleted} baris data dari file "${sourceFile}".`,
+    data: result,
+  });
+});
+
+module.exports = {
+  uploadHealthData,
+  getVisits,
+  getDiseases,
+  getSummary,
+  getHealthStatus,
+  listSources,
+  deleteSource,
+};

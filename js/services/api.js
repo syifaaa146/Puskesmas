@@ -162,6 +162,23 @@
         body: formData,
       });
     },
+
+    /* ---- Kelola file data kesehatan yang pernah diunggah (admin) ---- */
+    getUploadedSources() {
+      const token = window.AdminAuth && window.AdminAuth.getToken();
+      return request("/health/sources", {
+        method: "GET",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+    },
+    deleteUploadedSource({ kategori, source_file, jenis_data }) {
+      const token = window.AdminAuth && window.AdminAuth.getToken();
+      return request("/health/sources", {
+        method: "DELETE",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: JSON.stringify({ kategori, source_file, jenis_data }),
+      });
+    },
   };
 
   window.ApiService = ApiService;

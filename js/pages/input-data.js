@@ -213,6 +213,7 @@
       document.getElementById("upload-alert-success").scrollIntoView({ behavior: "smooth", block: "center" });
       document.getElementById("upload-filename").textContent = "";
       setTimeout(() => {form.reset(); setProgress(null);}, 1500);
+      loadSources();
     } catch (err) {
       setProgress(null);
       if (err && err.message === "SESSION_EXPIRED") {
@@ -242,9 +243,140 @@
     });
   }
 
+  /* ---------------------------------------------------------------------
+   * Kelola file yang sudah diunggah (lihat & hapus per sumber file)
+   * ------------------------------------------------------------------- */
+
+  function formatTanggal(isoString) {
+    if (!isoString) return "-";
+    try {
+      const date = new Date(isoString.replace(" ", "T") + "Z");
+      return date.toLocaleString("id-ID", {
+        day: "2-digit", month: "short", year: "numeric",
+        hour: "2-digit", minute: "2-digit",
+      });
+    } catch (err) {
+      return isoString;
+    }
+  }
+
+  function toggleSourcesAlert(id, show, message) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (message) {
+      const span = el.querySelector("span");
+      if (span) span.textContent = message;
+    }
+    el.classList.toggle("show", show);
+  }
+
+  function renderSourcesTable(items) {
+    const tbody = document.getElementById("sources-table-body");
+    if (!items || !items.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="state-message">Belum ada file yang diunggah.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = items.map((item, idx) => `
+      <tr>
+        <td>${escapeHtml(item.source_file || "-")}</td>
+        <td>${escapeHtml(item.kategori_label || "-")}</td>
+        <td>${item.jumlah_baris} baris</td>
+        <td>${formatTanggal(item.diunggah_pada)}</td>
+        <td>
+          <button type="button" class="btn-outline-brand btn-sm-brand btn-delete-source"
+            data-idx="${idx}"
+            style="border-color:#dc3545;color:#dc3545;">
+            <i class="fa-solid fa-trash me-1"></i> Hapus
+          </button>
+        </td>
+      </tr>
+    `).join("");
+
+    tbody.querySelectorAll(".btn-delete-source").forEach((btn) => {
+      btn.addEventListener("click", () => openDeleteConfirm(items[Number(btn.dataset.idx)]));
+    });
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  let sourcesCache = [];
+  let pendingDelete = null;
+
+  async function loadSources() {
+    const tbody = document.getElementById("sources-table-body");
+    tbody.innerHTML = '<tr><td colspan="5" class="state-message">Memuat daftar file...</td></tr>';
+    try {
+      const data = await window.ApiService.getUploadedSources();
+      sourcesCache = data || [];
+      renderSourcesTable(sourcesCache);
+    } catch (err) {
+      if (err && err.message === "SESSION_EXPIRED") return;
+      tbody.innerHTML = '<tr><td colspan="5" class="state-message">Gagal memuat daftar file.</td></tr>';
+    }
+  }
+
+  function openDeleteConfirm(item) {
+    pendingDelete = item;
+    document.getElementById("confirm-delete-filename").textContent =
+      `${item.source_file} (${item.kategori_label}, ${item.jumlah_baris} baris)`;
+    const modalEl = document.getElementById("confirm-delete-modal");
+    const modal = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+    modal.show();
+  }
+
+  async function handleConfirmDelete() {
+    if (!pendingDelete) return;
+    const btn = document.getElementById("confirm-delete-btn");
+    const originalLabel = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Menghapus...';
+
+    toggleSourcesAlert("sources-alert-success", false);
+    toggleSourcesAlert("sources-alert-error", false);
+
+    try {
+      const result = await window.ApiService.deleteUploadedSource({
+        kategori: pendingDelete.kategori,
+        source_file: pendingDelete.source_file,
+        jenis_data: pendingDelete.jenis_data,
+      });
+      const modalEl = document.getElementById("confirm-delete-modal");
+      window.bootstrap.Modal.getOrCreateInstance(modalEl).hide();
+      toggleSourcesAlert(
+        "sources-alert-success", true,
+        (result && result.message) || "Data berhasil dihapus."
+      );
+      await loadSources();
+    } catch (err) {
+      if (err && err.message === "SESSION_EXPIRED") {
+        window.location.href = "login.html?next=input-data.html";
+        return;
+      }
+      toggleSourcesAlert(
+        "sources-alert-error", true,
+        (err && err.message) || "Gagal menghapus data. Silakan coba lagi."
+      );
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalLabel;
+      pendingDelete = null;
+    }
+  }
+
+  function setupSourcesPanel() {
+    document.getElementById("confirm-delete-btn").addEventListener("click", handleConfirmDelete);
+    loadSources();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     setupAdminBar();
     setupDropzone();
     document.getElementById("upload-form").addEventListener("submit", handleSubmit);
+    setupSourcesPanel();
   });
 })(window, document);

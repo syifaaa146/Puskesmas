@@ -81,8 +81,67 @@
           </div>
         </div>
       </div>
+
+      <div class="row mt-5">
+        <div class="col-lg-10">
+          <span class="eyebrow">Kelola Data</span>
+          <h2 class="section-title mb-2" style="font-size:1.5rem;">File yang Sudah Diunggah</h2>
+          <p class="text-muted mb-4">
+            Hapus data dari file tertentu sebelum mengunggah data pengganti, supaya data lama dan baru tidak tercampur/dobel.
+          </p>
+
+          <div class="alert-brand success" id="sources-alert-success">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="sources-alert-success-text">Data berhasil dihapus.</span>
+          </div>
+          <div class="alert-brand error" id="sources-alert-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="sources-alert-error-text">Gagal memuat/menghapus data.</span>
+          </div>
+
+          <div class="table-responsive-brand">
+            <table class="data-table-brand">
+              <thead>
+                <tr>
+                  <th>Nama File</th>
+                  <th>Jenis Data</th>
+                  <th>Jumlah Baris</th>
+                  <th>Diunggah Pada</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="sources-table-body">
+                <tr><td colspan="5" class="state-message">Memuat daftar file...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- Modal konfirmasi hapus -->
+  <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fa-solid fa-triangle-exclamation text-danger me-2"></i>Konfirmasi Hapus Data</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body">
+          <p>Anda akan menghapus seluruh data dari file:</p>
+          <p><strong id="confirm-delete-filename">-</strong></p>
+          <p class="text-danger small"><i class="fa-solid fa-circle-exclamation me-1"></i>Tindakan ini tidak dapat dibatalkan. Data yang sudah dihapus tidak bisa dikembalikan.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-outline-brand btn-sm-brand" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn-brand" id="confirm-delete-btn" style="background-color:#dc3545;border-color:#dc3545;">
+            <i class="fa-solid fa-trash me-1"></i> Ya, Hapus Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div id="app-footer"></div>
 

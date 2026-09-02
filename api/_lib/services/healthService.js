@@ -194,6 +194,124 @@ async function getHealthSummary() {
   };
 }
 
+/* ------------------------------------------------------------------- */
+/* Kelola file yang pernah diunggah (lihat & hapus per sumber file)     */
+/* ------------------------------------------------------------------- */
+
+const KATEGORI_LABEL = {
+  kunjungan_pasien: "Data Kunjungan Pasien",
+  penyakit_terbanyak: "Data Penyakit Terbanyak",
+};
+
+/**
+ * GET /api/health/sources
+ * Mengelompokkan data yang tersimpan berdasarkan nama file Excel asal
+ * upload-nya, supaya admin bisa melihat "batch" mana saja yang pernah
+ * diunggah dan memilih salah satu untuk dihapus sebelum mengunggah data
+ * pengganti.
+ */
+async function listUploadedSources() {
+  let visitsResult;
+  let diseasesResult;
+  let genericResult;
+
+  try {
+    [visitsResult, diseasesResult, genericResult] = await Promise.all([
+      db.execute(
+        `SELECT source_file, COUNT(*) as jumlah_baris, MAX(created_at) as diunggah_pada
+         FROM ${TABLE_VISITS} WHERE source_file IS NOT NULL GROUP BY source_file`
+      ),
+      db.execute(
+        `SELECT source_file, COUNT(*) as jumlah_baris, MAX(created_at) as diunggah_pada
+         FROM ${TABLE_DISEASES} WHERE source_file IS NOT NULL GROUP BY source_file`
+      ),
+      db.execute(
+        `SELECT source_file, jenis_data, COUNT(*) as jumlah_baris, MAX(created_at) as diunggah_pada
+         FROM ${TABLE_GENERIC} WHERE source_file IS NOT NULL GROUP BY source_file, jenis_data`
+      ),
+    ]);
+  } catch (error) {
+    throw new ApiError("Gagal mengambil daftar file yang pernah diunggah.", 500, error.message);
+  }
+
+  const items = [
+    ...visitsResult.rows.map((r) => ({
+      kategori: "kunjungan_pasien",
+      kategori_label: KATEGORI_LABEL.kunjungan_pasien,
+      jenis_data: null,
+      source_file: r.source_file,
+      jumlah_baris: Number(r.jumlah_baris),
+      diunggah_pada: r.diunggah_pada,
+    })),
+    ...diseasesResult.rows.map((r) => ({
+      kategori: "penyakit_terbanyak",
+      kategori_label: KATEGORI_LABEL.penyakit_terbanyak,
+      jenis_data: null,
+      source_file: r.source_file,
+      jumlah_baris: Number(r.jumlah_baris),
+      diunggah_pada: r.diunggah_pada,
+    })),
+    ...genericResult.rows.map((r) => ({
+      kategori: "lainnya",
+      kategori_label: `Lainnya (${r.jenis_data})`,
+      jenis_data: r.jenis_data,
+      source_file: r.source_file,
+      jumlah_baris: Number(r.jumlah_baris),
+      diunggah_pada: r.diunggah_pada,
+    })),
+  ];
+
+  // Terbaru diunggah tampil paling atas.
+  items.sort((a, b) => (a.diunggah_pada < b.diunggah_pada ? 1 : -1));
+
+  return items;
+}
+
+/**
+ * DELETE /api/health/sources
+ * Menghapus seluruh baris yang berasal dari satu file/kategori tertentu.
+ * @param {{kategori: string, sourceFile: string, jenisData?: string}} params
+ */
+async function deleteBySource({ kategori, sourceFile, jenisData }) {
+  if (!sourceFile) {
+    throw new ApiError("Nama file sumber wajib diisi.", 400);
+  }
+
+  let sql;
+  let args;
+
+  if (kategori === "kunjungan_pasien") {
+    sql = `DELETE FROM ${TABLE_VISITS} WHERE source_file = ?`;
+    args = [sourceFile];
+  } else if (kategori === "penyakit_terbanyak") {
+    sql = `DELETE FROM ${TABLE_DISEASES} WHERE source_file = ?`;
+    args = [sourceFile];
+  } else if (kategori === "lainnya") {
+    if (!jenisData) {
+      throw new ApiError("jenis_data wajib diisi untuk kategori \"lainnya\".", 400);
+    }
+    sql = `DELETE FROM ${TABLE_GENERIC} WHERE source_file = ? AND jenis_data = ?`;
+    args = [sourceFile, jenisData];
+  } else {
+    throw new ApiError("Kategori tidak valid.", 400);
+  }
+
+  let result;
+  try {
+    result = await db.execute({ sql, args });
+  } catch (error) {
+    throw new ApiError("Gagal menghapus data.", 500, error.message);
+  }
+
+  const deletedCount = typeof result.rowsAffected === "number" ? result.rowsAffected : 0;
+
+  if (deletedCount === 0) {
+    throw new ApiError("Data dengan sumber file tersebut tidak ditemukan (mungkin sudah terhapus).", 404);
+  }
+
+  return { deleted: deletedCount };
+}
+
 module.exports = {
   saveKunjunganPasien,
   savePenyakitTerbanyak,
@@ -201,4 +319,6 @@ module.exports = {
   getVisitsChartData,
   getDiseasesChartData,
   getHealthSummary,
+  listUploadedSources,
+  deleteBySource,
 };
