@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  sitemap.xml
+  -----------------------------------------------------------------------
+  Daftar halaman publik situs, dipakai Google (lewat Search Console)
+  untuk menemukan & meng-index seluruh halaman lebih cepat.
+
+  PENTING: ganti "https://GANTI-DENGAN-DOMAIN-KAMU.vercel.app" di bawah
+  ini dengan domain situs kamu yang sebenarnya (lihat di address bar
+  browser setelah deploy), di SETIAP baris <loc>.
+
+  Halaman login.html dan input-data.html SENGAJA tidak dimasukkan
+  karena itu halaman khusus admin, bukan untuk publik/pencarian.
+  -----------------------------------------------------------------------
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://puskesmas-kutawaluya.vercel.app/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://puskesmas-kutawaluya.vercel.app/profil.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://puskesmas-kutawaluya.vercel.app/layanan.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://puskesmas-kutawaluya.vercel.app/program.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://puskesmas-kutawaluya.vercel.app/survei.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://puskesmas-kutawaluya.vercel.app/pengaduan.html</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>

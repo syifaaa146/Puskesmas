@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /login.html
+Disallow: /input-data.html
+Disallow: /api/
+
+Sitemap: https://puskesmas-kutawaluya.vercel.app/
