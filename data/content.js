@@ -97,6 +97,12 @@ window.SITE_CONTENT = {
       jam: "[00.00 - 00.00 WIB]",
       lokasi: "[Lokasi]",
       deskripsi: "[Deskripsi singkat]",
+    },{
+      judul: "[Judul]",
+      tanggal: "[yyyy-mm-dd]",
+      jam: "[00.00 - 00.00 WIB]",
+      lokasi: "[Lokasi]",
+      deskripsi: "[Deskripsi singkat]",
     },
   ],
 
@@ -151,15 +157,6 @@ window.SITE_CONTENT = {
    * =================================================================== */
   layanan: {
     services: [
-      {
-        nama: "[Nama Poli]",
-        kategori: "[Kategori Poli]",
-        deskripsi: "[Dekskripsi poli]",
-        jadwal: "[hari dan jam]",
-        lokasi: "[Tempat]",
-        persyaratan: ["[syarat1, syarat 2]"],
-        alur: ["[Alur 1, Alur 2]"],
-      },
       {
         nama: "[Nama Poli]",
         kategori: "[Kategori Poli]",
@@ -269,6 +266,40 @@ window.SITE_CONTENT = {
       petugas: "Bidan Desa & Kader Posyandu",
     },
     {
+      nama: "[Nama Program]",
+      kategori: "Penyakit Tidak Menular",
+      deskripsi: "[Deskripsi Program]",
+      sasaran: "Usia produktif dan lansia",
+      jadwal: "Setiap Sabtu minggu ke-2, 08.00 - 11.00",
+      lokasi: "[Tempat]",
+      petugas: "Kader Posbindu & Petugas Promkes",
+    },
+    {
+      nama: "[Nama Program]",
+      kategori: "Penyakit Tidak Menular",
+      deskripsi: "[Deskripsi Program]",
+      sasaran: "Usia produktif dan lansia",
+      jadwal: "Setiap Sabtu minggu ke-2, 08.00 - 11.00",
+      lokasi: "[Tempat]",
+      petugas: "Kader Posbindu & Petugas Promkes",
+    },
+    {
+      nama: "[Nama Program]",
+      kategori: "Penyakit Tidak Menular",
+      deskripsi: "[Deskripsi Program]",
+      sasaran: "Usia produktif dan lansia",
+      jadwal: "Setiap Sabtu minggu ke-2, 08.00 - 11.00",
+      lokasi: "[Tempat]",
+      petugas: "Kader Posbindu & Petugas Promkes",
+    },{
+      nama: "[Nama Program]",
+      kategori: "Penyakit Tidak Menular",
+      deskripsi: "[Deskripsi Program]",
+      sasaran: "Usia produktif dan lansia",
+      jadwal: "Setiap Sabtu minggu ke-2, 08.00 - 11.00",
+      lokasi: "[Tempat]",
+      petugas: "Kader Posbindu & Petugas Promkes",
+    },{
       nama: "[Nama Program]",
       kategori: "Penyakit Tidak Menular",
       deskripsi: "[Deskripsi Program]",
