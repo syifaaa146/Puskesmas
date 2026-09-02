@@ -34,21 +34,21 @@ window.SITE_CONTENT = {
       kategori: "[Kategori]",
       tanggal: "[yyyy-mm-dd]",
       ringkasan:
-        "[Deskripsi]",
+        "[Deskripsi Singkat]",
     },
     {
       judul: "[Judul]",
       kategori: "[Kategori]",
       tanggal: "[yyyy-mm-dd]",
       ringkasan:
-        "[Deskripsi]",
+        "[Deskripsi Singkat]",
     },
     {
       judul: "[Judul]",
       kategori: "[Kategori]",
       tanggal: "[yyyy-mm-dd]",
       ringkasan:
-        "[Deskripsi]",
+        "[Deskripsi Singkat]",
     },
   ],
 
