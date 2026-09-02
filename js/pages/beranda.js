@@ -34,7 +34,7 @@
       setMessage(container, "Belum ada informasi atau berita yang dipublikasikan.");
       return;
     }
-    container.innerHTML = items.slice(0, 3).map(renderNewsCard).join("");
+    container.innerHTML = items.slice(0, 6).map(renderNewsCard).join("");
   }
 
   /* --------------------------- Agenda / Kegiatan --------------------------- */
