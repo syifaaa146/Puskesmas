@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPTD Puskesmas Kutawaluya | Beranda</title>
+  <meta name="description" content="Website resmi UPTD Puskesmas Kutawaluya - melayani dengan sepenuh hati. Informasi layanan, program, dan data kesehatan masyarakat Kecamatan Kutawaluya.">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="beranda">
+
+  <div id="app-navbar" data-page="beranda"></div>
+
+  <!-- ============================= HERO ============================= -->
+  <header class="section-pad pb-4">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+          <span class="hero-badge"><i class="fa-solid fa-award me-1"></i> Ter-Akreditasi Paripurna</span>
+          <h1 class="hero-title">Selamat Datang di UPTD Puskesmas Kutawaluya</h1>
+          <p class="hero-lead">Melayani dengan Sepenuh Hati untuk Mewujudkan Masyarakat yang Sehat dan Berkualitas.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="survei.html" class="btn-brand">Survei Kepuasan <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <div class="hero-info-cards d-flex">
+            <div class="info-mini-card" style="width: 500px; height: 120px;">
+              <div class="label"><i class="fa-solid fa-clock  d-flex"></i> JADWAL PELAYANAN</div>
+              <div class="d-flex gap-3 mt-1 mb-3">
+                <div class="me-2">
+                  <span class="fw-bold">Rawat Jalan</span><br>
+                  <span class="fw-normal">Senin - Jumat, 07.45 - 15.45</span>
+                </div>
+                <div>
+                  <span class="fw-bold">Rawat Inap, PONED &amp; IGD</span><br>
+                  <span class="fw-normal">Senin - Minggu, 24 Jam</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="hero-image-frame">
+            <img src="assets/img/gedung.jpg" alt="Gedung UPTD Puskesmas Kutawaluya">
+            <div class="hero-time-chip d-flex flex-wrap" style="border: 1px solid #0b6642;">
+              <div class="satisfaction-ring" id="satisfaction-ring" style="--pct:0;">
+                <span class="pct-value" id="satisfaction-ring-value">-</span>
+              </div>
+              <div class="p-3">
+                <div class="fw-bold" id="satisfaction-percentage-text">Memuat data kepuasan...</div>
+                <div class="text-muted small" id="satisfaction-responden-text"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== INFORMASI & BERITA ===================== -->
+  <section class="section-pad bg-mint-strong">
+    <div class="container">
+      <span class="eyebrow">Kabar Terbaru</span>
+      <h2 class="section-title">Informasi &amp; Berita</h2>
+      <p class="section-subtitle mb-5">Informasi kesehatan dan pengumuman pelayanan terbaru untuk masyarakat.</p>
+
+      <div class="row g-4" id="news-container">
+        <!-- diisi oleh js/pages/beranda.js -->
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:160px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:160px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:160px;">Memuat...</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AGENDA / KEGIATAN ===================== -->
+  <section class="section-pad">
+    <div class="container text-center">
+      <span class="eyebrow">Agenda</span>
+      <h2 class="section-title">Kegiatan Mendatang</h2>
+      <p class="section-subtitle mx-auto mb-5">Ikuti kegiatan kesehatan Puskesmas di wilayah Anda.</p>
+    </div>
+    <div class="container">
+      <div class="timeline" id="agenda-container">
+        <div class="state-message">Memuat agenda kegiatan...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DATA KESEHATAN / STATISTIK ===================== -->
+  <section class="section-pad bg-mint-strong">
+    <div class="container">
+      <span class="eyebrow">Transparansi</span>
+      <h2 class="section-title">Data Kesehatan</h2>
+      <p class="section-subtitle mb-5">Statistik pelayanan kesehatan sebagai bentuk keterbukaan informasi kepada masyarakat.</p>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="chart-card">
+            <h5 class="mb-1">Tren Kunjungan Pasien</h5>
+            <p class="text-muted small mb-3">Jumlah kunjungan pasien</p>
+            <div class="chart-wrapper" id="visits-chart-wrapper">
+              <canvas id="visitsChart" aria-label="Grafik tren kunjungan pasien" role="img"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="chart-card">
+            <h5 class="mb-1">Penyakit Terbanyak</h5>
+            <p class="text-muted small mb-3">Diagnosis terbanyak dalam 6 bulan terakhir.</p>
+            <div class="chart-wrapper" id="diseases-chart-wrapper">
+              <canvas id="diseasesChart" aria-label="Grafik penyakit terbanyak" role="img"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-note" style="background-color: white;">
+        <i class="fa-solid fa-circle-info me-1"></i>
+        Data di atas ditampilkan sebagai informasi statistik pelayanan dan dapat diperbarui sewaktu-waktu oleh administrator Puskesmas.
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <!-- Bootstrap Bundle (termasuk Popper) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js -->
+  <script src="js/vendor/chart.umd.min.js"></script>></script>
+
+  <!-- App scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/services/charts.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="data/content.js"></script>
+  <script src="js/pages/beranda.js"></script>
+</body>
+</html>

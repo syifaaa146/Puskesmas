@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Layanan kesehatan, jadwal dokter, alur dan persyaratan berobat di UPTD Puskesmas Kutawaluya.">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="layanan">
+
+  <div id="app-navbar" data-page="layanan"></div>
+  <div id="app-breadcrumb" data-page="layanan" data-label="Layanan Kesehatan"></div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="badge-eyebrow">LAYANAN</span>
+      <h1 class="section-title">Layanan Kesehatan</h1>
+      <p class="section-subtitle">Informasi lengkap seluruh layanan, jadwal dokter, jam pelayanan, alur dan persyaratan berobat.</p>
+    </div>
+  </header>
+
+  <!-- ===================== CARI LAYANAN ===================== -->
+  <section class="section-pad bg-mint-strong">
+    <div class="container">
+      <span class="eyebrow">Semua Layanan</span>
+      <h2 class="section-title">Cari Layanan yang Anda butuhkan</h2>
+      <p class="section-subtitle">Gunakan pencarian atau saring berdasarkan kategori layanan.</p>
+
+      <div class="filter-bar">
+        <div class="search-input-wrap"  >
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="service-search" class="form-control-brand" placeholder="Cari layanan atau dokter">
+        </div>
+      </div>
+      <div class="filter-bar" id="service-category-filters">
+        <button class="filter-pill active" data-category="semua">Semua</button>
+        <!-- kategori tambahan diisi oleh js/pages/layanan.js -->
+      </div>
+
+      <div class="row g-4 mt-2" id="services-container">
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:180px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:180px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:180px;">Memuat...</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLUSTER PELAYANAN ILP ===================== -->
+  <section class="section-pad">
+    <div class="container text-center">
+      <span class="eyebrow">Integrasi Layanan Primer</span>
+      <h2 class="section-title">Cluster Pelayanan ILP</h2>
+      <p class="section-subtitle mx-auto mb-5">Pelayanan Puskesmas dikelola dalam empat cluster sesuai siklus hidup penduduk agar lebih terintegrasi.</p>
+    </div>
+    <div class="container">
+      <div class="row g-4" id="clusters-container">
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:140px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:140px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:140px;">Memuat...</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JADWAL DOKTER ===================== -->
+  <section class="section-pad bg-mint-strong">
+    <div class="container">
+      <span class="eyebrow">Jadwal Dokter</span>
+      <h2 class="section-title">Jadwal Dokter &amp; Petugas Poli</h2>
+      <p class="section-subtitle mb-4">Saring berdasarkan hari dan poli untuk menemukan jadwal praktik yang sesuai.</p>
+
+      <div class="filter-bar mb-4">
+        <select class="form-select-brand" id="filter-hari" style="max-width:200px;">
+          <option value="">Semua Hari</option>
+          <option value="Senin">Senin</option>
+          <option value="Selasa">Selasa</option>
+          <option value="Rabu">Rabu</option>
+          <option value="Kamis">Kamis</option>
+          <option value="Jumat">Jumat</option>
+          <option value="Sabtu">Sabtu</option>
+        </select>
+        <select class="form-select-brand" id="filter-poli" style="max-width:200px;">
+          <option value="">Semua Poli</option>
+        </select>
+      </div>
+
+      <div class="table-responsive-brand">
+        <table class="data-table-brand">
+          <thead>
+            <tr>
+              <th>Nama Dokter/Petugas</th>
+              <th>Poli/Layanan</th>
+              <th>Hari</th>
+              <th>Tanggal</th>
+              <th>Jam</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-table-body">
+            <tr><td colspan="4" class="state-message">Memuat jadwal dokter...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ALUR & PERSYARATAN ===================== -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-7">
+          <span class="eyebrow">Alur Pelayanan</span>
+          <h2 class="section-title mb-4">Langkah Berobat di Puskesmas</h2>
+          <div class="timeline-flow" id="alur-container">
+            <div class="state-message">Memuat alur pelayanan...</div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card-soft h-auto bg-mint-strong" style="background-color:var(--color-surface-mint-strong);">
+            <span class="eyebrow">Persyaratan</span>
+            <h4 class="mb-3">Dokumen yang Perlu Dibawa</h4>
+            <ul class="list-unstyled" id="persyaratan-container">
+              <li class="state-message">Memuat persyaratan...</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="data/content.js"></script>
+  <script src="js/pages/layanan.js"></script>
+</body>
+</html>

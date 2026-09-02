@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survei Kepuasan | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Survei kepuasan masyarakat terhadap pelayanan UPTD Puskesmas Kutawaluya.">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="survei">
+
+  <div id="app-navbar" data-page="survei"></div>
+  <div id="app-breadcrumb" data-page="survei" data-label="Survei Kepuasan"></div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="badge-eyebrow">SURVEI</span>
+      <h1 class="section-title">Survei Kepuasan Masyarakat</h1>
+      <p class="section-subtitle">Bantu kami meningkatkan kualitas pelayanan UPTD Puskesmas dengan memberikan penilaian dan masukan berdasarkan pengalaman Anda.</p>
+    </div>
+  </header>
+
+  <section class="section-pad bg-mint-strong">
+    <div class="container">
+      <form id="survey-form" novalidate>
+        <div class="row g-4 align-items-start">
+          <!-- KOLOM KIRI: Info & Data Diri -->
+          <div class="col-lg-4">
+            <div class="card-soft mb-4">
+              <div class="d-flex gap-2">
+                <i class="fa-solid fa-circle-info text-brand mt-1"></i>
+                <p class="small mb-0">Survei ini digunakan sebagai bahan evaluasi untuk meningkatkan kualitas pelayanan kepada masyarakat. Identitas Anda bersifat rahasia dan nama tidak wajib diisi.</p>
+              </div>
+            </div>
+
+            <div class="card-soft mb-4">
+              <label class="form-label-brand" for="survey-nama">Nama Lengkap <span class="text-muted fw-normal">(opsional)</span></label>
+              <input type="text" id="survey-nama" name="nama" class="form-control-brand mb-3" placeholder="Nama Sesuai Identitas" maxlength="100">
+
+              <label class="form-label-brand" for="survey-usia">Usia <span class="text-muted fw-normal">(opsional)</span></label>
+              <input type="number" id="survey-usia" name="usia" class="form-control-brand mb-3" placeholder="contoh: 32" min="0" max="120">
+
+              <label class="form-label-brand" for="survey-tanggal">Tanggal Kunjungan</label>
+              <input type="date" id="survey-tanggal" name="tanggal_kunjungan" class="form-control-brand mb-1">
+              <div class="field-error" data-error-for="survey-tanggal">Tanggal kunjungan wajib diisi.</div>
+              <div class="mb-3"></div>
+
+              <label class="form-label-brand" for="survey-layanan">Jenis Layanan yang Diterima</label>
+              <select id="survey-layanan" name="layanan" class="form-select-brand">
+                <option value="">Pilih Layanan</option>
+                <option value="Poli Umum">Poli Umum</option>
+                <option value="Poli Gigi">Poli Gigi</option>
+                <option value="KIA / KB">KIA / KB</option>
+                <option value="Farmasi">Farmasi</option>
+                <option value="Laboratorium">Laboratorium</option>
+                <option value="IGD">IGD</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+              <div class="field-error" data-error-for="survey-layanan">Jenis layanan wajib dipilih.</div>
+            </div>
+
+            <div class="card-soft">
+              <label class="form-label-brand" for="survey-saran">Saran</label>
+              <textarea id="survey-saran" name="saran" class="form-control-brand mb-3" rows="3" placeholder="Tuliskan saran atau masukan untuk meningkatkan kualitas pelayanan." maxlength="500"></textarea>
+
+              <label class="form-label-brand" for="survey-disukai">Apa yang paling Anda sukai dari pelayanan kami?</label>
+              <textarea id="survey-disukai" name="hal_disukai" class="form-control-brand" rows="3" placeholder="Ceritakan hal baik mengenai pelayanan." maxlength="500"></textarea>
+            </div>
+          </div>
+
+          <!-- KOLOM KANAN: Penilaian Kepuasan -->
+          <div class="col-lg-8">
+            <div class="card-soft">
+              <h5>Penilaian Kepuasan</h5>
+              <p class="text-muted small">Berikan penilaian untuk setiap aspek layanan.</p>
+
+              <div class="legend-scale">
+                <span class="legend-item">1 Sangat Tidak Puas</span>
+                <span class="legend-item">2 Tidak Puas</span>
+                <span class="legend-item">3 Cukup Puas</span>
+                <span class="legend-item">4 Puas</span>
+                <span class="legend-item">5 Sangat Puas</span>
+              </div>
+
+              <div id="survey-questions-container">
+                <!-- baris pertanyaan digenerate oleh js/pages/survei.js -->
+              </div>
+              <div class="field-error" data-error-for="survey-questions">Mohon lengkapi seluruh penilaian di atas.</div>
+
+              <div class="alert-brand success" id="survey-alert-success">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Terima kasih! Survei Anda berhasil dikirim.</span>
+              </div>
+              <div class="alert-brand error" id="survey-alert-error">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="survey-alert-error-text">Survei gagal dikirim. Silakan coba lagi.</span>
+              </div>
+
+              <button type="submit" class="btn-brand mt-4" id="survey-submit-btn">
+                <span id="survey-submit-label">Kirim</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pages/survei.js"></script>
+</body>
+</html>

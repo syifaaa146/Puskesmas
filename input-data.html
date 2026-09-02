@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Data Kesehatan | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Unggah data kesehatan dalam format Excel untuk diproses dan ditampilkan pada statistik Puskesmas.">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- Auth guard: cek sesi admin SEBELUM konten halaman dirender,
+       supaya halaman tidak "berkedip" sebelum redirect ke login. -->
+  <script src="js/services/auth.js"></script>
+  <script>window.AdminAuth.protect();</script>
+</head>
+<body data-page="data-kesehatan">
+
+  <div id="app-navbar" data-page="data-kesehatan"></div>
+  <div id="app-breadcrumb" data-page="data-kesehatan" data-label="Input Data"></div>
+
+  <div class="container">
+    <div class="admin-session-bar">
+      <span><i class="fa-solid fa-user-shield me-1"></i> Login sebagai <strong id="admin-username-label">admin</strong></span>
+      <button type="button" class="btn-outline-brand btn-sm-brand" id="logout-btn">
+        <i class="fa-solid fa-right-from-bracket me-1"></i> Keluar
+      </button>
+    </div>
+  </div>
+
+  <section class="section-pad" style="padding-top:16px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7">
+          <span class="eyebrow">Input Data Kesehatan</span>
+          <h1 class="section-title mb-4">Pilih Input Data</h1>
+
+          <form id="upload-form" novalidate>
+            <label class="form-label-brand" for="upload-jenis">Pilih Input Data</label>
+            <select id="upload-jenis" name="jenis_data" class="form-select-brand mb-4">
+              <option value="">Pilih Data</option>
+              <option value="kunjungan_pasien">Data Kunjungan Pasien</option>
+              <option value="penyakit_terbanyak">Data Penyakit Terbanyak</option>
+            </select>
+            <div class="field-error" data-error-for="upload-jenis">Jenis data wajib dipilih.</div>
+
+            <label class="form-label-brand mt-3">Lampiran</label>
+            <div class="upload-dropzone" id="upload-dropzone">
+              <div class="upload-icon"><i class="fa-solid fa-upload"></i></div>
+              <div>Upload File Excel</div>
+              <div class="small text-muted mt-1">Format: .xlsx atau .xls. Maks. 10MB.</div>
+              <div class="upload-filename" id="upload-filename"></div>
+            </div>
+            <input type="file" id="upload-file" name="file" accept=".xlsx,.xls" hidden>
+            <div class="field-error" data-error-for="upload-file">File wajib diunggah dalam format .xlsx atau .xls, maksimal 10MB.</div>
+
+            <div class="progress-brand" id="upload-progress">
+              <div class="bar" id="upload-progress-bar"></div>
+            </div>
+
+            <div class="alert-brand success" id="upload-alert-success">
+              <i class="fa-solid fa-circle-check"></i>
+              <span id="upload-alert-success-text">Data berhasil diunggah dan diproses.</span>
+            </div>
+            <div class="alert-brand error" id="upload-alert-error">
+              <i class="fa-solid fa-circle-exclamation"></i>
+              <span id="upload-alert-error-text">Gagal mengunggah data. Silakan coba lagi.</span>
+            </div>
+
+            <button type="submit" class="btn-brand mt-4" id="upload-submit-btn">
+              <span id="upload-submit-label">Kirim</span>
+            </button>
+          </form>
+
+          <div class="chart-note mt-4">
+            <i class="fa-solid fa-circle-info me-1"></i>
+            Setelah data berhasil diproses oleh backend, grafik statistik pada halaman Beranda akan otomatis diperbarui.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pages/input-data.js"></script>
+</body>
+</html>

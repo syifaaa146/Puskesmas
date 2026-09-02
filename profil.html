@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Profil UPTD Puskesmas Kutawaluya - visi misi, struktur organisasi, tata nilai, akreditasi dan sertifikasi.">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="profil">
+
+  <div id="app-navbar" data-page="profil"></div>
+  <div id="app-breadcrumb" data-page="profil" data-label="Profil UPTD Puskesmas Kutawaluya"></div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="badge-eyebrow">PROFIL</span>
+      <h1 class="section-title">Profil UPTD Puskesmas Kutawaluya</h1>
+      <p class="section-subtitle">Mengenal lebih dekat, komitmen pelayanan, dan capaian akreditasi Puskesmas.</p>
+    </div>
+  </header>
+
+  <!-- ===================== DESKRIPSI ===================== -->
+  <section class="section-pad bg-mint-strong">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div>
+          <span class="eyebrow">Deskripsi</span>
+          <h2 class="section-title">Tentang UPTD Puskesmas Kutawaluya</h2>
+          <p id="profile-description" class="mt-3">
+            <span class="skeleton d-inline-block" style="width:100%;height: 100px;"></span>
+          </p>
+          <div class="d-flex flex-column gap-2 mt-3" id="profile-highlights">
+            <!-- diisi oleh js/pages/profil.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISI & MISI ===================== -->
+  <section class="section-pad">
+    <div class="container">
+      <span class="eyebrow">Visi &amp; Misi</span>
+      <h2 class="section-title mb-4">VISI</h2>
+      <div class="hero-badge mb-5 d-inline-block" style="font-size:1rem;" id="profile-vision">
+        <span class="skeleton d-inline-block" style="width:320px;">Memuat visi...</span>
+      </div>
+
+      <h2 class="section-title mb-4">MISI</h2>
+      <div class="card-soft">
+        <ol class="mb-0 ps-3" id="profile-mission">
+          <li class="skeleton mb-2" style="width:80%;height:16px;list-style:none;">Memuat misi...</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TATA NILAI ORGANISASI ===================== -->
+  <section class="section-pad bg-mint-strong">
+    <div class="container text-center">
+      <span class="eyebrow">Tata Nilai Organisasi</span>
+      <h2 class="section-title mb-5" id="profile-motto">&ldquo;THE WINNERS&rdquo;</h2>
+      <div class="row g-3" id="profile-values-container">
+        <!-- diisi oleh js/pages/profil.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AKREDITASI & SERTIFIKASI ===================== -->
+  <section class="section-pad">
+    <div class="container">
+      <span class="eyebrow">Terpercaya</span>
+      <h2 class="section-title">Akreditasi &amp; Sertifikasi</h2>
+      <p class="section-subtitle mb-5">Bukti komitmen Puskesmas terhadap mutu dan keselamatan pasien.</p>
+
+      <div class="row g-4" id="profile-accreditations-container">
+        <div class="col-md-6">
+          <div class="accreditation-card">
+            <div class="skeleton" style="width:44px;height:44px;border-radius:50%;"></div>
+            <div class="w-100">
+              <div class="skeleton mb-2" style="height:16px;width:60%;">.</div>
+              <div class="skeleton" style="height:14px;width:40%;">.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="data/content.js"></script>
+  <script src="js/pages/profil.js"></script>
+</body>
+</html>

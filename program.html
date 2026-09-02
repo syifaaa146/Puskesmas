@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Program kesehatan masyarakat UPTD Puskesmas Kutawaluya yang dijalankan bersama kader dan lintas sektor.">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="program">
+
+  <div id="app-navbar" data-page="program"></div>
+  <div id="app-breadcrumb" data-page="program" data-label="Program Puskesmas"></div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="badge-eyebrow">PROGRAM</span>
+      <h1 class="section-title">Program Puskesmas</h1>
+      <p class="section-subtitle">Program kesehatan masyarakat yang dijalankan Puskesmas bersama kader dan lintas sektor di wilayah kerja.</p>
+    </div>
+  </header>
+
+  <section class="section-pad bg-mint-strong">
+    <div class="container">
+      <span class="eyebrow">Cari Program</span>
+      <h2 class="section-title">Temukan program sesuai kebutuhan Anda</h2>
+      <p class="section-subtitle">Gunakan pencarian atau saring berdasarkan kategori program.</p>
+
+      <div class="filter-bar">
+        <div class="search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="program-search" class="form-control-brand" placeholder="Cari Program">
+        </div>
+        <button class="filter-pill active" data-category="semua">Semua</button>
+        <div id="program-category-filters" class="d-contents"></div>
+      </div>
+
+      <div class="row g-4 mt-2" id="programs-container">
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:180px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:180px;">Memuat...</div></div></div>
+        <div class="col-md-4"><div class="card-soft"><div class="skeleton" style="height:180px;">Memuat...</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="data/content.js"></script>
+  <script src="js/pages/program.js"></script>
+</body>
+</html>

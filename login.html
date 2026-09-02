@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Halaman login admin UPTD Puskesmas Kutawaluya untuk mengelola input data kesehatan.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="login" class="login-body">
+
+  <!-- Header sederhana: hanya logo + tautan kembali, tanpa menu navigasi publik -->
+  <header class="login-top-bar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="index.html" class="navbar-brand-custom">
+        <img src="assets/img/logo-puskesmas.svg" alt="Logo UPTD Puskesmas Kutawaluya" class="navbar-logo">
+        <span class="navbar-brand-text">
+          <span class="navbar-brand-title">UPTD PUSKESMAS KUTAWALUYA</span>
+          <span class="navbar-brand-subtitle">Melayani dengan Sepenuh Hati</span>
+        </span>
+      </a>
+      <a href="index.html" class="btn-outline-brand">
+        <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Beranda
+      </a>
+    </div>
+  </header>
+
+  <main class="login-wrapper">
+    <div class="login-card">
+      <div class="text-center mb-4">
+        <div class="login-icon"><i class="fa-solid fa-lock"></i></div>
+        <span class="badge-eyebrow d-inline-block mt-3">AREA ADMIN</span>
+        <h1 class="section-title" style="font-size:1.6rem;">Login Admin</h1>
+        <p class="text-muted small mb-0">Halaman Input Data Kesehatan hanya dapat diakses oleh admin Puskesmas yang sudah login.</p>
+      </div>
+
+      <form id="login-form" novalidate>
+        <label class="form-label-brand" for="login-username">Username</label>
+        <input type="text" id="login-username" name="username" class="form-control-brand mb-3" placeholder="Masukkan username" autocomplete="username" autofocus>
+        <div class="field-error" data-error-for="login-username">Username wajib diisi.</div>
+
+        <label class="form-label-brand" for="login-password">Password</label>
+        <div class="password-input-wrap mb-1">
+          <input type="password" id="login-password" name="password" class="form-control-brand" placeholder="Masukkan password" autocomplete="current-password">
+          <button type="button" class="password-toggle" id="password-toggle" aria-label="Tampilkan password">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+        <div class="field-error" data-error-for="login-password">Password wajib diisi.</div>
+        <div class="mb-3"></div>
+
+        <div class="alert-brand error" id="login-alert-error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span id="login-alert-error-text">Username atau password salah.</span>
+        </div>
+
+        <button type="submit" class="btn-brand w-100 justify-content-center mt-2" id="login-submit-btn">
+          <span id="login-submit-label">Masuk</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/services/auth.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pages/login.js"></script>
+</body>
+</html>

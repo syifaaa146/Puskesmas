@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengaduan | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Layanan pengaduan masyarakat UPTD Puskesmas Kutawaluya. Sampaikan kritik, saran, atau pengaduan melalui formulir resmi.">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="pengaduan">
+
+  <div id="app-navbar" data-page="pengaduan"></div>
+  <div id="app-breadcrumb" data-page="pengaduan" data-label="Layanan Pengaduan Masyarakat"></div>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="badge-eyebrow">PENGADUAN</span>
+      <h1 class="section-title">Layanan Pengaduan Masyarakat</h1>
+      <p class="section-subtitle">Suara Anda membantu kami memberikan pelayanan yang lebih baik. Sampaikan kritik, saran, atau pengaduan melalui formulir resmi berikut.</p>
+    </div>
+  </header>
+
+  <section class="section-pad bg-mint-strong" id="kontak">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-4">
+          <span class="eyebrow">Kenapa Melapor?</span>
+          <h2 class="section-title mb-4">Setiap masukan kami tindaklanjuti</h2>
+
+          <div class="card-soft mb-3 d-flex flex-row gap-3 align-items-start">
+            <i class="fa-solid fa-heart-circle-check fa-lg text-brand mt-1"></i>
+            <div>
+              <h6 class="mb-1">Ramah dan Terbuka</h6>
+              <p class="small text-muted mb-0">Semua laporan dibaca dan ditindaklanjuti tanpa membedakan pelapor.</p>
+            </div>
+          </div>
+          <div class="card-soft d-flex flex-row gap-3 align-items-start">
+            <i class="fa-solid fa-lock fa-lg text-brand mt-1"></i>
+            <div>
+              <h6 class="mb-1">Data Anda Aman</h6>
+              <p class="small text-muted mb-0">Identitas pelapor dijaga kerahasiaannya dan hanya digunakan untuk tindak lanjut.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="card-soft">
+            <form id="complaint-form" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label-brand" for="complaint-nama">Nama Lengkap</label>
+                  <input type="text" id="complaint-nama" name="nama" class="form-control-brand" placeholder="Nama Sesuai Identitas" maxlength="100">
+                  <div class="field-error" data-error-for="complaint-nama">Nama lengkap wajib diisi.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label-brand" for="complaint-hp">No. HP / WhatsApp</label>
+                  <input type="tel" id="complaint-hp" name="no_hp" class="form-control-brand" placeholder="08xxxxxxxx" maxlength="20">
+                  <div class="field-error" data-error-for="complaint-hp">Nomor HP/WhatsApp wajib diisi.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label-brand" for="complaint-email">Email</label>
+                  <input type="email" id="complaint-email" name="email" class="form-control-brand" placeholder="xxxx@gmail.com" maxlength="150">
+                  <div class="field-error" data-error-for="complaint-email">Masukkan alamat email yang valid.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label-brand" for="complaint-kategori">Kategori Pengaduan</label>
+                  <select id="complaint-kategori" name="kategori" class="form-select-brand">
+                    <option value="">Pilih Kategori</option>
+                    <option value="Pelayanan Medis">Pelayanan Medis</option>
+                    <option value="Sikap Petugas">Sikap Petugas</option>
+                    <option value="Fasilitas">Fasilitas</option>
+                    <option value="Administrasi">Administrasi</option>
+                    <option value="Lainnya">Lainnya</option>
+                  </select>
+                  <div class="field-error" data-error-for="complaint-kategori">Kategori pengaduan wajib dipilih.</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-brand" for="complaint-subjek">Subjek</label>
+                  <input type="text" id="complaint-subjek" name="subjek" class="form-control-brand" placeholder="Judul Pengaduan" maxlength="150">
+                  <div class="field-error" data-error-for="complaint-subjek">Subjek pengaduan wajib diisi.</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-brand" for="complaint-isi">Isi Pengaduan</label>
+                  <textarea id="complaint-isi" name="isi" class="form-control-brand" rows="4" placeholder="Jelaskan pengaduan anda secara jelas: waktu kejadian, lokasi, pihak terkait bila ada." maxlength="2000"></textarea>
+                  <div class="field-error" data-error-for="complaint-isi">Isi pengaduan wajib diisi (minimal 20 karakter).</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label-brand" for="complaint-lampiran">Lampiran</label>
+                  <div class="upload-dropzone" id="complaint-dropzone">
+                    <div class="upload-icon"><i class="fa-solid fa-upload"></i></div>
+                    <div>Upload Bukti (Opsional)</div>
+                    <div class="small text-muted mt-1">Format: JPG, PNG, atau PDF. Maks. 5MB.</div>
+                    <div class="upload-filename" id="complaint-filename"></div>
+                  </div>
+                  <input type="file" id="complaint-lampiran" name="lampiran" accept=".jpg,.jpeg,.png,.pdf" hidden>
+                  <div class="field-error" data-error-for="complaint-lampiran">Ukuran atau format file tidak didukung.</div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check d-flex gap-2 align-items-start p-3 rounded-3">
+                    <input class="form-check-input mt-1 bg-mint-strong" type="checkbox" id="complaint-confirm" name="konfirmasi">
+                    <label class="form-check-label small" for="complaint-confirm">
+                      Saya menyatakan informasi yang saya sampaikan benar dan bersedia dihubungi petugas Puskesmas untuk keperluan klarifikasi.
+                    </label>
+                  </div>
+                  <div class="field-error" data-error-for="complaint-confirm">Anda harus menyetujui pernyataan ini sebelum mengirim.</div>
+                </div>
+              </div>
+
+              <div class="alert-brand success" id="complaint-alert-success">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Pengaduan Anda berhasil dikirim. Terima kasih atas masukannya.</span>
+              </div>
+              <div class="alert-brand error" id="complaint-alert-error">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="complaint-alert-error-text">Pengaduan gagal dikirim. Silakan coba lagi.</span>
+              </div>
+
+              <button type="submit" class="btn-brand mt-4" id="complaint-submit-btn">
+                <span id="complaint-submit-label">Kirim</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pages/pengaduan.js"></script>
+</body>
+</html>
