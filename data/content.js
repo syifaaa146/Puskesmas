@@ -50,6 +50,13 @@ window.SITE_CONTENT = {
       ringkasan:
         "[Deskripsi Singkat]",
     },
+    {
+      judul: "[Judul]",
+      kategori: "[Kategori]",
+      tanggal: "[yyyy-mm-dd]",
+      ringkasan:
+        "[Deskripsi Singkat]",
+    },
   ],
 
   /* ===================================================================
