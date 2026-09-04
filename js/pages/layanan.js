@@ -2,9 +2,9 @@
  * pages/layanan.js
  * -----------------------------------------------------------------------
  * Menampilkan daftar layanan, cluster ILP, jadwal dokter (dengan filter),
- * alur pelayanan, dan persyaratan dokumen — seluruhnya dari data statis
- * (data/content.js, bagian `layanan`). Edit konten langsung di file itu,
- * tidak perlu backend/database untuk bagian ini.
+ * alur pelayanan, dan persyaratan dokumen — seluruhnya dari database
+ * (tabel site_content, bagian `layanan`). Untuk mengubah konten: login
+ * admin -> halaman "Kelola Konten" -> tab Layanan -> edit -> Simpan.
  * -----------------------------------------------------------------------
  */
 (function (window, document) {
@@ -164,7 +164,6 @@
           <td>${escapeHtml(row.nama_petugas)}</td>
           <td>${escapeHtml(row.poli)}</td>
           <td>${escapeHtml(row.hari)}</td>
-          <td>${escapeHtml(row.tanggal)}</td>
           <td>${escapeHtml(row.jam)}</td>
         </tr>`
       )
@@ -228,10 +227,12 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    loadServices();
-    loadClusters();
-    loadSchedule();
-    loadAlurPersyaratan();
+    window.SiteContentReady.then(function () {
+      loadServices();
+      loadClusters();
+      loadSchedule();
+      loadAlurPersyaratan();
+    });
 
     const searchInput = document.getElementById("service-search");
     searchInput.addEventListener("input", (e) => {

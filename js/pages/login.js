@@ -14,12 +14,14 @@
 (function (window, document) {
   "use strict";
 
+  const ALLOWED_NEXT_PAGES = ["input-data.html", "kelola-konten.html"];
+
   function getNextPage() {
     const params = new URLSearchParams(window.location.search);
     const next = params.get("next");
     // Whitelist sederhana supaya parameter "next" tidak bisa dipakai
     // untuk redirect ke luar situs (open redirect).
-    return next === "input-data.html" ? next : "input-data.html";
+    return ALLOWED_NEXT_PAGES.includes(next) ? next : "input-data.html";
   }
 
   function clearFieldErrors(form) {

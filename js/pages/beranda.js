@@ -2,8 +2,8 @@
  * pages/beranda.js
  * -----------------------------------------------------------------------
  * Logika khusus halaman Beranda:
- *  - Informasi & Berita         -> data statis (data/content.js)
- *  - Agenda / Kegiatan Mendatang -> data statis (data/content.js)
+ *  - Informasi & Berita         -> database, dikelola via halaman admin "Kelola Konten"
+ *  - Agenda / Kegiatan Mendatang -> database, dikelola via halaman admin "Kelola Konten"
  *  - Grafik Data Kesehatan       -> backend (dinamis dari hasil upload Excel)
  *  - Persentase Kepuasan         -> backend (dihitung dari data survei)
  * -----------------------------------------------------------------------
@@ -34,7 +34,7 @@
       setMessage(container, "Belum ada informasi atau berita yang dipublikasikan.");
       return;
     }
-    container.innerHTML = items.slice(0, 6).map(renderNewsCard).join("");
+    container.innerHTML = items.slice(0, 3).map(renderNewsCard).join("");
   }
 
   /* --------------------------- Agenda / Kegiatan --------------------------- */
@@ -135,8 +135,10 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    loadNews();
-    loadAgenda();
+    // Informasi & Berita, Agenda -> tunggu window.SITE_CONTENT terisi dari server.
+    window.SiteContentReady.then(loadNews);
+    window.SiteContentReady.then(loadAgenda);
+    // Grafik & kepuasan -> panggilan API sendiri, tidak perlu menunggu konten situs.
     loadVisitsChart();
     loadDiseasesChart();
     loadSatisfaction();

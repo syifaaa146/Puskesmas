@@ -17,6 +17,7 @@ const authRoutes = require("./routes/authRoutes");
 const surveyRoutes = require("./routes/surveyRoutes");
 const healthRoutes = require("./routes/healthRoutes");
 const complaintRoutes = require("./routes/complaintRoutes");
+const contentRoutes = require("./routes/contentRoutes");
 
 const { generalLimiter } = require("./middleware/rateLimiter");
 const { errorHandler, notFoundHandler } = require("./middleware/errorHandler");
@@ -75,6 +76,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/survey", surveyRoutes);
 app.use("/api/health", healthRoutes);
 app.use("/api/complaints", complaintRoutes);
+app.use("/api/content", contentRoutes);
 
 /* --------------------------- 404 & Error handler -------------------------*/
 app.use(notFoundHandler);

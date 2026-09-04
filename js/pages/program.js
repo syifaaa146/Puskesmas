@@ -1,10 +1,10 @@
 /**
  * pages/program.js
  * -----------------------------------------------------------------------
- * Menampilkan daftar program kesehatan Puskesmas dari data statis
- * (data/content.js, bagian `programs`), dengan pencarian dan filter
- * kategori di sisi frontend. Edit konten langsung di file itu, tidak
- * perlu backend/database untuk bagian ini.
+ * Menampilkan daftar program kesehatan Puskesmas dari database (tabel
+ * site_content, bagian `programs`), dengan pencarian dan filter kategori
+ * di sisi frontend. Untuk mengubah konten: login admin -> halaman
+ * "Kelola Konten" -> tab Program -> edit -> Simpan.
  * -----------------------------------------------------------------------
  */
 (function (window, document) {
@@ -86,7 +86,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    loadPrograms();
+    window.SiteContentReady.then(loadPrograms);
 
     document.getElementById("program-search").addEventListener("input", (e) => {
       searchTerm = e.target.value.trim().toLowerCase();

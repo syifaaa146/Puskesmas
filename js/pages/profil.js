@@ -1,10 +1,9 @@
 /**
  * pages/profil.js
  * -----------------------------------------------------------------------
- * Menampilkan data Profil Puskesmas dari data statis (data/content.js):
- * deskripsi, visi, misi, tata nilai organisasi, akreditasi & sertifikasi.
- * Edit konten langsung di data/content.js (bagian `profile`), tidak perlu
- * backend/database untuk bagian ini.
+ * Menampilkan data Profil Puskesmas dari database (tabel site_content,
+ * bagian `profile`). Untuk mengubah konten: login admin -> halaman
+ * "Kelola Konten" -> tab Profil -> edit -> Simpan.
  * -----------------------------------------------------------------------
  */
 (function (window, document) {
@@ -113,5 +112,7 @@
     renderAccreditations(data.akreditasi);
   }
 
-  document.addEventListener("DOMContentLoaded", loadProfile);
+  document.addEventListener("DOMContentLoaded", function () {
+    window.SiteContentReady.then(loadProfile);
+  });
 })(window, document);

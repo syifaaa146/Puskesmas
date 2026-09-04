@@ -8,6 +8,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "migrate": "node scripts/migrate.js",
+    "seed-content": "node scripts/seed-content.js",
     "hash-password": "node api/_lib/utils/hashPassword.js"
   },
   "engines": {

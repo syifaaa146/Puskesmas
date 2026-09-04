@@ -83,10 +83,9 @@
             </div>
             <p>Media informasi resmi UPTD Puskesmas Kutawaluya menyediakan informasi layanan kesehatan dasar bagi masyarakat wilayah kerja.</p>
             <div class="footer-social mt-3">
-              <a href="https://www.instagram.com/pkm_kutawaluya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" aria-label="Instagram UPTD Puskesmas Kutawaluya"><i class="fa-brands fa-instagram"></i></a>
-              <a href="https://www.tiktok.com/@pkmkutawaluya" aria-label="Tiktok UPTD Puskesmas Kutawaluya"><i class="fa-brands fa-tiktok"></i></a>
-              <a href="https://www.facebook.com/people/Puskesmas-Kutawaluya/100034989715277" aria-label="Facebook UPTD Puskesmas Kutawaluya"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="https://www.youtube.com/@puskesmaskutawaluya4969" aria-label="Youtube UPTD Puskesmas Kutawaluya"><i class="fa-brands fa-youtube"></i></a>
+              <a href="#" aria-label="Instagram UPTD Puskesmas Kutawaluya"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" aria-label="YouTube UPTD Puskesmas Kutawaluya"><i class="fa-brands fa-youtube"></i></a>
+              <a href="#" aria-label="Facebook UPTD Puskesmas Kutawaluya"><i class="fa-brands fa-facebook-f"></i></a>
             </div>
           </div>
           <div class="col-lg-4" id="footer-kontak">
@@ -96,8 +95,12 @@
               <span>Jalan Raya Sampalan, Desa Sampalan, Kecamatan Kutawaluya, Kabupaten Karawang, Jawa Barat, kode pos 41358.</span>
             </div>
             <div class="footer-contact-item">
+              <i class="fa-solid fa-phone"></i>
+              <span>08xxxxxxxx</span>
+            </div>
+            <div class="footer-contact-item">
               <i class="fa-brands fa-whatsapp"></i>
-              <span>085176923748</span>
+              <span>08xxxxxxxx</span>
             </div>
             <div class="footer-contact-item">
               <i class="fa-solid fa-envelope"></i>
@@ -107,6 +110,8 @@
           <div class="col-lg-4">
             <h6>Tautan Layanan</h6>
             <p class="mb-2"><a href="login.html">Data Kesehatan</a></p>
+            <p class="mb-2"><a href="#">BPJS Kesehatan</a></p>
+            <p class="mb-2"><a href="#">BPJS Kesehatan</a></p>
             <p class="mb-2"><a href="#">BPJS Kesehatan</a></p>
           </div>
         </div>

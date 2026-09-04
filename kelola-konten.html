@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Konten | UPTD Puskesmas Kutawaluya</title>
+  <meta name="description" content="Kelola konten website: Informasi & Berita, Agenda, Profil, Layanan, dan Program.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- Auth guard: sama seperti input-data.html, wajib login admin -->
+  <script src="js/services/auth.js"></script>
+  <script>window.AdminAuth.protect();</script>
+
+  <style>
+    /* Gaya kecil khusus halaman ini, dibiarkan inline supaya tidak
+       menambah file CSS baru untuk satu halaman admin saja. */
+    .kk-tabs { border-bottom: 2px solid var(--color-border-soft); margin-bottom: 24px; flex-wrap: wrap; }
+    .kk-tabs .nav-link { color: var(--color-text-muted); font-weight: 600; border: none; border-bottom: 3px solid transparent; border-radius: 0; padding: 10px 16px; }
+    .kk-tabs .nav-link.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); background: none; }
+    .kk-item-card { border: 1.5px solid var(--color-border-soft); border-radius: var(--radius-md); padding: 18px; margin-bottom: 16px; background: var(--color-white); position: relative; }
+    .kk-item-card .kk-remove-btn { position: absolute; top: 12px; right: 12px; }
+    .kk-subfield-list .kk-subitem-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .kk-subfield-list .kk-subitem-row input { flex: 1; }
+    .kk-add-btn { margin-top: 4px; }
+    .kk-section-panel { display: none; }
+    .kk-section-panel.active { display: block; }
+    .kk-field-group { margin-bottom: 18px; }
+    .kk-save-bar { position: sticky; bottom: 0; background: var(--color-white); border-top: 1px solid var(--color-border-soft); padding: 14px 0; margin-top: 24px; display: flex; align-items: center; gap: 12px; }
+  </style>
+</head>
+<body data-page="kelola-konten">
+
+  <div id="app-navbar" data-page="kelola-konten"></div>
+  <div id="app-breadcrumb" data-page="kelola-konten" data-label="Kelola Konten"></div>
+
+  <div class="container">
+    <div class="admin-session-bar">
+      <span><i class="fa-solid fa-user-shield me-1"></i> Login sebagai <strong id="admin-username-label">admin</strong></span>
+      <a href="input-data.html" class="btn-outline-brand btn-sm-brand">
+        <i class="fa-solid fa-database me-1"></i> Input Data Kesehatan
+      </a>
+      <button type="button" class="btn-outline-brand btn-sm-brand" id="logout-btn">
+        <i class="fa-solid fa-right-from-bracket me-1"></i> Keluar
+      </button>
+    </div>
+  </div>
+
+  <section class="section-pad" style="padding-top:16px;">
+    <div class="container">
+      <span class="eyebrow">Kelola Konten</span>
+      <h1 class="section-title mb-4">Ubah Konten Website</h1>
+
+      <div class="alert-brand success" id="kk-alert-success">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="kk-alert-success-text">Konten berhasil disimpan.</span>
+      </div>
+      <div class="alert-brand error" id="kk-alert-error">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="kk-alert-error-text">Gagal menyimpan konten.</span>
+      </div>
+
+      <ul class="nav kk-tabs" id="kk-tabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-section="news" type="button">Informasi &amp; Berita</button></li>
+        <li class="nav-item"><button class="nav-link" data-section="agenda" type="button">Agenda</button></li>
+        <li class="nav-item"><button class="nav-link" data-section="profile" type="button">Profil</button></li>
+        <li class="nav-item"><button class="nav-link" data-section="layanan" type="button">Layanan</button></li>
+        <li class="nav-item"><button class="nav-link" data-section="programs" type="button">Program</button></li>
+      </ul>
+
+      <!-- Panel per section dirender secara dinamis oleh js/pages/kelola-konten.js -->
+      <div id="kk-panel-news" class="kk-section-panel active" data-section-panel="news"></div>
+      <div id="kk-panel-agenda" class="kk-section-panel" data-section-panel="agenda"></div>
+      <div id="kk-panel-profile" class="kk-section-panel" data-section-panel="profile"></div>
+      <div id="kk-panel-layanan" class="kk-section-panel" data-section-panel="layanan"></div>
+      <div id="kk-panel-programs" class="kk-section-panel" data-section-panel="programs"></div>
+
+      <div class="kk-save-bar">
+        <button type="button" class="btn-brand" id="kk-save-btn">
+          <span id="kk-save-label"><i class="fa-solid fa-floppy-disk me-1"></i> Simpan Perubahan</span>
+        </button>
+        <span class="text-muted small" id="kk-save-hint">Perubahan hanya tersimpan untuk bagian yang sedang aktif di atas.</span>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pages/kelola-konten.js"></script>
+</body>
+</html>

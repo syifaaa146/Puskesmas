@@ -179,6 +179,23 @@
         body: JSON.stringify({ kategori, source_file, jenis_data }),
       });
     },
+
+    /* ---- Kelola Konten (admin) ---- */
+    getContentSection(section) {
+      const token = window.AdminAuth && window.AdminAuth.getToken();
+      return request(`/content/${encodeURIComponent(section)}`, {
+        method: "GET",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+    },
+    saveContentSection(section, content) {
+      const token = window.AdminAuth && window.AdminAuth.getToken();
+      return request(`/content/${encodeURIComponent(section)}`, {
+        method: "PUT",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: JSON.stringify(content),
+      });
+    },
   };
 
   window.ApiService = ApiService;

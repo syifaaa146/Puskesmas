@@ -4,4 +4,4 @@ Disallow: /login.html
 Disallow: /input-data.html
 Disallow: /api/
 
-Sitemap: https://puskesmas-kutawaluya.vercel.app/
+Sitemap: https://GANTI-DENGAN-DOMAIN-KAMU.vercel.app/sitemap.xml

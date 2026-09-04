@@ -1,27 +1,25 @@
 /**
- * data/content.js
+ * scripts/seed-content.js
  * -----------------------------------------------------------------------
- * !! FILE INI SUDAH TIDAK DIPAKAI LAGI (deprecated) !!
+ * Mengisi tabel site_content dengan konten AWAL (data yang dulu ada di
+ * data/content.js), supaya begitu fitur "Kelola Konten" mulai dipakai,
+ * halaman publik tidak tiba-tiba kosong.
  *
- * Konten Informasi & Berita, Agenda, Profil, Layanan, dan Program
- * sekarang dikelola lewat halaman admin "Kelola Konten"
- * (kelola-konten.html) dan disimpan di database (tabel site_content),
- * BUKAN lagi dari file ini.
+ * HANYA PERLU DIJALANKAN SEKALI, setelah npm run migrate dan sebelum
+ * pertama kali membuka halaman admin "Kelola Konten". Aman dijalankan
+ * ulang — akan MENIMPA isi section yang sudah ada di database dengan
+ * data awal ini, jadi jangan dijalankan lagi setelah konten pernah
+ * diedit lewat halaman admin (kecuali memang ingin mengembalikan ke
+ * data contoh awal).
  *
- * File ini tidak lagi dimuat oleh index.html/profil.html/layanan.html/
- * program.html (lihat js/services/content-loader.js sebagai
- * penggantinya) — dibiarkan di sini hanya sebagai ARSIP/REFERENSI data
- * awal yang dulu pernah dipakai. Aman dihapus kapan saja jika sudah
- * tidak diperlukan lagi.
- *
- * Untuk mengubah konten sekarang: login sebagai admin -> buka halaman
- * "Kelola Konten" -> pilih tab bagian yang ingin diubah -> edit -> Simpan.
+ *   npm run seed-content
  * -----------------------------------------------------------------------
  */
-window.SITE_CONTENT = {
-  /* ===================================================================
-   * BERANDA — Informasi & Berita
-   * =================================================================== */
+require("dotenv").config();
+
+const db = require("../api/_lib/config/db");
+
+const INITIAL_CONTENT = {
   news: [
     {
       judul: "Jadwal Imunisasi Rutin Bulan Ini",
@@ -46,9 +44,6 @@ window.SITE_CONTENT = {
     },
   ],
 
-  /* ===================================================================
-   * BERANDA — Agenda / Kegiatan Mendatang
-   * =================================================================== */
   agenda: [
     {
       judul: "Posyandu Balita Desa Sampalan",
@@ -80,9 +75,6 @@ window.SITE_CONTENT = {
     },
   ],
 
-  /* ===================================================================
-   * PROFIL
-   * =================================================================== */
   profile: {
     deskripsi:
       "UPTD Puskesmas Kutawaluya merupakan Unit Pelaksana Teknis Daerah di bawah Dinas Kesehatan Kabupaten Karawang yang menyelenggarakan pelayanan kesehatan tingkat pertama bagi masyarakat di wilayah Kecamatan Kutawaluya. Puskesmas Kutawaluya berlokasi di Desa Sampalan, Kecamatan Kutawaluya, Kabupaten Karawang. Dalam pelaksanaan pelayanan kesehatan, Puskesmas Kutawaluya memberikan pelayanan kesehatan perorangan sekaligus melaksanakan berbagai upaya kesehatan masyarakat secara terpadu.",
@@ -115,111 +107,69 @@ window.SITE_CONTENT = {
         penyelenggara: "Komisi Akreditasi Fasilitas Kesehatan Tingkat Pertama (KAFKTP)",
         tmt: "TMT 2023",
         berlaku_hingga: "Berlaku hingga 2026",
-        file: "assets/docs/akreditasi.pdf", 
+        file: "assets/docs/akreditasi.pdf",
       },
       {
         nama: "Sertifikat ISO 9001:2015",
         penyelenggara: "Manajemen Mutu Pelayanan",
         tmt: "TMT 2022",
         berlaku_hingga: "Berlaku hingga 2025",
-      },
-      {
-        nama: "Sertifikat ISO 9001:2015",
-        penyelenggara: "Manajemen Mutu Pelayanan",
-        tmt: "TMT 2022",
-        berlaku_hingga: "Berlaku hingga 2025",
+        file: "",
       },
     ],
   },
 
-  /* ===================================================================
-   * LAYANAN
-   * =================================================================== */
   layanan: {
     services: [
       {
-        nama: "Poli Umum",
-        kategori: "Poli & Rawat Jalan",
+        nama: "Poli Umum", kategori: "Poli & Rawat Jalan",
         deskripsi: "Pemeriksaan dan pengobatan umum untuk seluruh usia.",
-        jadwal: "Senin - Sabtu, 07.45 - 13.00",
-        lokasi: "Lantai 1, Ruang 1",
+        jadwal: "Senin - Sabtu, 07.45 - 13.00", lokasi: "Lantai 1, Ruang 1",
         persyaratan: ["Kartu identitas (KTP/KK)", "Kartu BPJS/KIS jika ada"],
         alur: ["Ambil nomor antrean", "Pendaftaran di loket", "Menunggu panggilan poli", "Pemeriksaan dokter", "Pengambilan obat di farmasi"],
       },
       {
-        nama: "Poli Gigi",
-        kategori: "Poli & Rawat Jalan",
+        nama: "Poli Gigi", kategori: "Poli & Rawat Jalan",
         deskripsi: "Pemeriksaan dan perawatan kesehatan gigi dan mulut.",
-        jadwal: "Senin - Jumat, 08.00 - 13.00",
-        lokasi: "Lantai 1, Ruang 3",
+        jadwal: "Senin - Jumat, 08.00 - 13.00", lokasi: "Lantai 1, Ruang 3",
         persyaratan: ["Kartu identitas (KTP/KK)", "Kartu BPJS/KIS jika ada"],
         alur: ["Ambil nomor antrean", "Pendaftaran di loket", "Pemeriksaan di poli gigi"],
       },
       {
-        nama: "KIA / KB",
-        kategori: "Kesehatan Ibu & Anak",
+        nama: "KIA / KB", kategori: "Kesehatan Ibu & Anak",
         deskripsi: "Pemeriksaan kehamilan, imunisasi anak, dan layanan keluarga berencana.",
-        jadwal: "Senin - Sabtu, 07.45 - 13.00",
-        lokasi: "Lantai 1, Ruang KIA",
+        jadwal: "Senin - Sabtu, 07.45 - 13.00", lokasi: "Lantai 1, Ruang KIA",
         persyaratan: ["Buku KIA (bagi ibu hamil/balita)", "Kartu identitas"],
         alur: ["Pendaftaran di loket", "Pemeriksaan/konsultasi di ruang KIA"],
       },
       {
-        nama: "Farmasi",
-        kategori: "Penunjang",
+        nama: "Farmasi", kategori: "Penunjang",
         deskripsi: "Pelayanan pengambilan obat sesuai resep dokter.",
-        jadwal: "Senin - Sabtu, 07.45 - 14.00",
-        lokasi: "Lantai 1, dekat pintu keluar",
+        jadwal: "Senin - Sabtu, 07.45 - 14.00", lokasi: "Lantai 1, dekat pintu keluar",
         persyaratan: ["Resep dari dokter Puskesmas"],
         alur: ["Serahkan resep", "Tunggu panggilan", "Ambil obat"],
       },
       {
-        nama: "Laboratorium",
-        kategori: "Penunjang",
+        nama: "Laboratorium", kategori: "Penunjang",
         deskripsi: "Pemeriksaan penunjang seperti darah, urine, dan gula darah.",
-        jadwal: "Senin - Sabtu, 07.45 - 12.00",
-        lokasi: "Lantai 1, Ruang Laboratorium",
+        jadwal: "Senin - Sabtu, 07.45 - 12.00", lokasi: "Lantai 1, Ruang Laboratorium",
         persyaratan: ["Surat pengantar dari dokter poli"],
         alur: ["Serahkan surat pengantar", "Pengambilan sampel", "Ambil hasil sesuai jadwal"],
       },
       {
-        nama: "IGD (Unit Gawat Darurat)",
-        kategori: "Gawat Darurat",
+        nama: "IGD (Unit Gawat Darurat)", kategori: "Gawat Darurat",
         deskripsi: "Penanganan kasus gawat darurat selama 24 jam.",
-        jadwal: "Setiap hari, 24 jam",
-        lokasi: "Lantai 1, sebelah kanan gedung utama",
+        jadwal: "Setiap hari, 24 jam", lokasi: "Lantai 1, sebelah kanan gedung utama",
         persyaratan: ["Kartu identitas (dapat menyusul)"],
         alur: ["Datang langsung ke IGD", "Triase oleh petugas", "Penanganan medis"],
       },
     ],
-
     clusters: [
-      {
-        nama: "Ibu, Anak, dan Remaja",
-        sasaran: "Ibu hamil, balita, anak sekolah, dan remaja",
-        jenis_pelayanan: "ANC, imunisasi, tumbuh kembang anak, kesehatan reproduksi remaja",
-        jadwal: "Senin - Sabtu, 07.45 - 13.00",
-      },
-      {
-        nama: "Usia Produktif dan Lansia",
-        sasaran: "Usia produktif (15-59 tahun) dan lansia",
-        jenis_pelayanan: "Skrining PTM, posbindu, pelayanan lansia",
-        jadwal: "Senin - Sabtu, sesuai jadwal posbindu",
-      },
-      {
-        nama: "Penanggulangan Penyakit Menular",
-        sasaran: "Masyarakat umum berisiko penyakit menular",
-        jenis_pelayanan: "TB, HIV, imunisasi, surveilans penyakit menular",
-        jadwal: "Senin - Jumat, 07.45 - 13.00",
-      },
-      {
-        nama: "Lintas Klaster (Kegawatdaruratan & Penunjang)",
-        sasaran: "Seluruh lapisan masyarakat",
-        jenis_pelayanan: "IGD, laboratorium, farmasi, rawat inap/PONED",
-        jadwal: "24 jam setiap hari",
-      },
+      { nama: "Ibu, Anak, dan Remaja", sasaran: "Ibu hamil, balita, anak sekolah, dan remaja", jenis_pelayanan: "ANC, imunisasi, tumbuh kembang anak, kesehatan reproduksi remaja", jadwal: "Senin - Sabtu, 07.45 - 13.00" },
+      { nama: "Usia Produktif dan Lansia", sasaran: "Usia produktif (15-59 tahun) dan lansia", jenis_pelayanan: "Skrining PTM, posbindu, pelayanan lansia", jadwal: "Senin - Sabtu, sesuai jadwal posbindu" },
+      { nama: "Penanggulangan Penyakit Menular", sasaran: "Masyarakat umum berisiko penyakit menular", jenis_pelayanan: "TB, HIV, imunisasi, surveilans penyakit menular", jadwal: "Senin - Jumat, 07.45 - 13.00" },
+      { nama: "Lintas Klaster (Kegawatdaruratan & Penunjang)", sasaran: "Seluruh lapisan masyarakat", jenis_pelayanan: "IGD, laboratorium, farmasi, rawat inap/PONED", jadwal: "24 jam setiap hari" },
     ],
-
     alur_umum: [
       { judul: "Ambil nomor antrean", deskripsi: "Ambil nomor antrean di mesin/loket pendaftaran sesuai jenis layanan." },
       { judul: "Pendaftaran", deskripsi: "Serahkan kartu identitas dan BPJS/KIS (jika ada) ke petugas loket." },
@@ -227,14 +177,12 @@ window.SITE_CONTENT = {
       { judul: "Pemeriksaan", deskripsi: "Konsultasi dan pemeriksaan oleh dokter/petugas di poli." },
       { judul: "Pengambilan obat", deskripsi: "Ambil obat di farmasi jika mendapat resep dari dokter." },
     ],
-
     persyaratan_umum: [
       "Kartu Tanda Penduduk (KTP) atau Kartu Keluarga (KK)",
       "Kartu BPJS Kesehatan/KIS (jika peserta JKN)",
       "Buku KIA bagi ibu hamil, ibu menyusui, atau balita",
       "Surat rujukan (jika kunjungan lanjutan/rujuk balik)",
     ],
-
     schedule: [
       { nama_petugas: "dr. Andi Prasetyo", poli: "Poli Umum", hari: "Senin", jam: "07.45 - 13.00" },
       { nama_petugas: "dr. Andi Prasetyo", poli: "Poli Umum", hari: "Rabu", jam: "07.45 - 13.00" },
@@ -249,63 +197,44 @@ window.SITE_CONTENT = {
     ],
   },
 
-  /* ===================================================================
-   * PROGRAM
-   * =================================================================== */
   programs: [
-    {
-      nama: "Posyandu Balita",
-      kategori: "Kesehatan Ibu & Anak",
-      deskripsi: "Pemantauan tumbuh kembang balita, imunisasi, dan pemberian vitamin.",
-      sasaran: "Balita usia 0-5 tahun",
-      jadwal: "Setiap tanggal 5-10, sesuai jadwal posyandu masing-masing desa",
-      lokasi: "Posyandu di 7 desa wilayah kerja",
-      petugas: "Bidan Desa & Kader Posyandu",
-    },
-    {
-      nama: "Posbindu PTM",
-      kategori: "Penyakit Tidak Menular",
-      deskripsi: "Skrining tekanan darah, gula darah, dan faktor risiko penyakit tidak menular.",
-      sasaran: "Usia produktif dan lansia",
-      jadwal: "Setiap Sabtu minggu ke-2, 08.00 - 11.00",
-      lokasi: "Balai desa/posbindu setempat",
-      petugas: "Kader Posbindu & Petugas Promkes",
-    },
-    {
-      nama: "Program TB Paru",
-      kategori: "Penyakit Menular",
-      deskripsi: "Penemuan kasus, pengobatan, dan pemantauan pasien TB paru.",
-      sasaran: "Masyarakat dengan gejala/terkonfirmasi TB",
-      jadwal: "Setiap hari kerja",
-      lokasi: "Poli TB Puskesmas",
-      petugas: "Petugas Program TB",
-    },
-    {
-      nama: "Kelas Ibu Hamil",
-      kategori: "Kesehatan Ibu & Anak",
-      deskripsi: "Edukasi kehamilan, persalinan, dan perawatan bayi baru lahir bagi ibu hamil.",
-      sasaran: "Ibu hamil",
-      jadwal: "Setiap bulan, minggu ke-3",
-      lokasi: "Aula Puskesmas",
-      petugas: "Bidan Koordinator",
-    },
-    {
-      nama: "Gerakan Cegah Stunting",
-      kategori: "Gizi Masyarakat",
-      deskripsi: "Edukasi gizi, pemberian makanan tambahan, dan pemantauan balita berisiko stunting.",
-      sasaran: "Ibu hamil, ibu menyusui, dan balita",
-      jadwal: "Berkelanjutan, evaluasi tiap bulan",
-      lokasi: "Posyandu & Puskesmas",
-      petugas: "Petugas Gizi",
-    },
-    {
-      nama: "Imunisasi Rutin",
-      kategori: "Pencegahan Penyakit",
-      deskripsi: "Pemberian imunisasi dasar lengkap dan lanjutan untuk bayi dan anak sekolah.",
-      sasaran: "Bayi, balita, dan anak usia sekolah",
-      jadwal: "Setiap Selasa dan Kamis, 08.00 - 11.00",
-      lokasi: "Ruang KIA Puskesmas & Posyandu",
-      petugas: "Bidan & Petugas Imunisasi",
-    },
+    { nama: "Posyandu Balita", kategori: "Kesehatan Ibu & Anak", deskripsi: "Pemantauan tumbuh kembang balita, imunisasi, dan pemberian vitamin.", sasaran: "Balita usia 0-5 tahun", jadwal: "Setiap tanggal 5-10, sesuai jadwal posyandu masing-masing desa", lokasi: "Posyandu di 7 desa wilayah kerja", petugas: "Bidan Desa & Kader Posyandu" },
+    { nama: "Posbindu PTM", kategori: "Penyakit Tidak Menular", deskripsi: "Skrining tekanan darah, gula darah, dan faktor risiko penyakit tidak menular.", sasaran: "Usia produktif dan lansia", jadwal: "Setiap Sabtu minggu ke-2, 08.00 - 11.00", lokasi: "Balai desa/posbindu setempat", petugas: "Kader Posbindu & Petugas Promkes" },
+    { nama: "Program TB Paru", kategori: "Penyakit Menular", deskripsi: "Penemuan kasus, pengobatan, dan pemantauan pasien TB paru.", sasaran: "Masyarakat dengan gejala/terkonfirmasi TB", jadwal: "Setiap hari kerja", lokasi: "Poli TB Puskesmas", petugas: "Petugas Program TB" },
+    { nama: "Kelas Ibu Hamil", kategori: "Kesehatan Ibu & Anak", deskripsi: "Edukasi kehamilan, persalinan, dan perawatan bayi baru lahir bagi ibu hamil.", sasaran: "Ibu hamil", jadwal: "Setiap bulan, minggu ke-3", lokasi: "Aula Puskesmas", petugas: "Bidan Koordinator" },
+    { nama: "Gerakan Cegah Stunting", kategori: "Gizi Masyarakat", deskripsi: "Edukasi gizi, pemberian makanan tambahan, dan pemantauan balita berisiko stunting.", sasaran: "Ibu hamil, ibu menyusui, dan balita", jadwal: "Berkelanjutan, evaluasi tiap bulan", lokasi: "Posyandu & Puskesmas", petugas: "Petugas Gizi" },
+    { nama: "Imunisasi Rutin", kategori: "Pencegahan Penyakit", deskripsi: "Pemberian imunisasi dasar lengkap dan lanjutan untuk bayi dan anak sekolah.", sasaran: "Bayi, balita, dan anak usia sekolah", jadwal: "Setiap Selasa dan Kamis, 08.00 - 11.00", lokasi: "Ruang KIA Puskesmas & Posyandu", petugas: "Bidan & Petugas Imunisasi" },
   ],
 };
+
+async function seed() {
+  if (!process.env.TURSO_DATABASE_URL) {
+    console.error("[seed-content] TURSO_DATABASE_URL belum diisi di .env.");
+    process.exit(1);
+  }
+
+  console.log("[seed-content] Mengisi data awal ke tabel site_content ...");
+
+  for (const [section, content] of Object.entries(INITIAL_CONTENT)) {
+    try {
+      await db.execute({
+        sql: `INSERT INTO site_content (section_key, content_json, updated_at)
+              VALUES (?, ?, datetime('now'))
+              ON CONFLICT(section_key) DO UPDATE SET
+                content_json = excluded.content_json,
+                updated_at = excluded.updated_at`,
+        args: [section, JSON.stringify(content)],
+      });
+      console.log(`[seed-content] OK  - ${section}`);
+    } catch (err) {
+      console.error(`[seed-content] GAGAL - ${section}`);
+      console.error(err.message);
+      process.exit(1);
+    }
+  }
+
+  console.log("[seed-content] Selesai. Konten awal sudah tersimpan di database.");
+  process.exit(0);
+}
+
+seed();

@@ -82,6 +82,24 @@ CREATE TABLE IF NOT EXISTS health_data (
 CREATE INDEX IF NOT EXISTS idx_health_data_jenis
   ON health_data (jenis_data);
 
+-- -----------------------------------------------------------------------
+-- 5. site_content
+--    Penyimpanan konten yang dulunya statis di data/content.js (Informasi
+--    & Berita, Agenda, Profil, Layanan, Program) — sekarang dikelola lewat
+--    halaman admin "Kelola Konten", bukan diedit langsung di kode.
+--
+--    Satu baris = satu "bagian" konten (section_key), isinya JSON persis
+--    seperti struktur yang dulu ada di data/content.js. Pendekatan ini
+--    dipilih (bukan tabel terpisah per jenis konten) supaya struktur
+--    bersarang (misalnya daftar layanan yang masing-masing punya daftar
+--    persyaratan & alur sendiri) tidak perlu dipecah ke banyak tabel.
+-- -----------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS site_content (
+  section_key  TEXT PRIMARY KEY,     -- 'news' | 'agenda' | 'profile' | 'layanan' | 'programs'
+  content_json TEXT NOT NULL,        -- JSON — bentuknya persis seperti field yang sama di data/content.js lama
+  updated_at   TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 -- =============================================================================
 -- CATATAN KEAMANAN
 --
