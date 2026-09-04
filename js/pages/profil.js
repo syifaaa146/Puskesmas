@@ -69,7 +69,7 @@
               <span class="badge-soft">${escapeHtml(a.berlaku_hingga || "Masa berlaku -")}</span>
               ${
                 a.file
-                  ? `<a href="${escapeHtml(a.file)}" target="_blank" rel="noopener" class="card-link d-block mt-2">
+                  ? `<a href="${escapeHtml(window.resolveFileUrl(a.file))}" target="_blank" rel="noopener" class="card-link d-block mt-2">
                        <i class="fa-solid fa-file-pdf me-1"></i>Lihat Sertifikat (PDF)
                      </a>`
                   : ""

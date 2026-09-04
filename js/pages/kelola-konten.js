@@ -132,7 +132,7 @@
       statusEl.innerHTML = "";
       if (obj[key]) {
         const link = document.createElement("a");
-        link.href = obj[key];
+        link.href = window.resolveFileUrl(obj[key]);
         link.target = "_blank";
         link.rel = "noopener";
         link.className = "me-2";

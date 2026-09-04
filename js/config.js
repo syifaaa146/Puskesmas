@@ -32,4 +32,23 @@
     // Tahun berjalan untuk footer (fallback jika JS tanggal gagal).
     CURRENT_YEAR: new Date().getFullYear(),
   });
+
+  /**
+   * URL file yang dikembalikan backend (misalnya file PDF akreditasi hasil
+   * upload) berbentuk path relatif ("/api/content/files/xxx"). Di produksi
+   * (Vercel), frontend & backend satu domain jadi path relatif langsung
+   * berfungsi. Tapi saat development lokal lewat Live Server, halaman
+   * dibuka dari port BERBEDA (misal :5500) dari backend (:5000) — path
+   * relatif akan salah arah (nyasar ke Live Server, bukan ke backend).
+   * Fungsi ini menambahkan origin backend yang benar HANYA saat
+   * diperlukan (dev lokal); di produksi path relatif dikembalikan apa adanya.
+   */
+  window.resolveFileUrl = function (relativeUrl) {
+    if (!relativeUrl) return relativeUrl;
+    const base = window.APP_CONFIG.API_BASE_URL;
+    const isAbsoluteBase = /^https?:\/\//i.test(base);
+    if (!isAbsoluteBase) return relativeUrl;
+    const origin = base.replace(/\/api\/?$/, "");
+    return origin + relativeUrl;
+  };
 })(window);
