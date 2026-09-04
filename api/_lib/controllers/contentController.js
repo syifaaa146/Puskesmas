@@ -42,4 +42,28 @@ const putSection = asyncHandler(async (req, res) => {
   return sendSuccess(res, { message: "Konten berhasil disimpan.", data: result });
 });
 
-module.exports = { getAllContent, getSection, putSection };
+const uploadContentFile = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    throw new ApiError("File tidak ditemukan pada permintaan.", 400);
+  }
+  const result = await contentService.saveContentFile(
+    req.file.buffer,
+    req.file.originalname,
+    req.file.mimetype
+  );
+  return sendSuccess(res, {
+    message: "File berhasil diunggah.",
+    data: { id: result.id, url: `/api/content/files/${result.id}` },
+  });
+});
+
+const getContentFile = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const file = await contentService.getContentFile(id);
+  res.set("Content-Type", file.mimeType);
+  res.set("Content-Disposition", `inline; filename="${file.originalName}"`);
+  res.set("Cache-Control", "public, max-age=3600");
+  return res.send(Buffer.from(file.data));
+});
+
+module.exports = { getAllContent, getSection, putSection, uploadContentFile, getContentFile };

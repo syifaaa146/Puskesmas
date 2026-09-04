@@ -48,7 +48,7 @@ app.use(
       }
       return callback(new Error("Origin tidak diizinkan oleh kebijakan CORS."));
     },
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );

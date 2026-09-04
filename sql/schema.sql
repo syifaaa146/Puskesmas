@@ -100,6 +100,21 @@ CREATE TABLE IF NOT EXISTS site_content (
   updated_at   TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+-- -----------------------------------------------------------------------
+-- 6. content_files
+--    File (PDF) yang diunggah lewat halaman admin "Kelola Konten" —
+--    misalnya file akreditasi/sertifikat. Disimpan langsung sebagai BLOB
+--    di Turso (bukan di folder assets/), supaya bisa diunggah/diganti
+--    kapan saja lewat halaman admin tanpa perlu git push.
+-- -----------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS content_files (
+  id            TEXT PRIMARY KEY,
+  original_name TEXT NOT NULL,
+  mime_type     TEXT NOT NULL,
+  file_data     BLOB NOT NULL,
+  uploaded_at   TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 -- =============================================================================
 -- CATATAN KEAMANAN
 --

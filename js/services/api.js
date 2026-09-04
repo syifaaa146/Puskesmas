@@ -196,6 +196,16 @@
         body: JSON.stringify(content),
       });
     },
+    uploadContentFile(file) {
+      const token = window.AdminAuth && window.AdminAuth.getToken();
+      const formData = new FormData();
+      formData.append("file", file);
+      return request("/content/files", {
+        method: "POST",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: formData,
+      });
+    },
   };
 
   window.ApiService = ApiService;

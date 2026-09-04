@@ -180,9 +180,15 @@ dari halaman admin:
 6. Perubahan langsung tampil di halaman publik begitu di-refresh (tidak
    perlu `git push` atau redeploy, karena datanya di database, bukan kode).
 
+Khusus untuk file PDF (misalnya sertifikat akreditasi di tab **Profil**):
+ada tombol **Unggah** tersendiri — pilih file PDF dari komputer, klik
+Unggah, file otomatis tersimpan dan langsung terhubung ke item tersebut
+(tidak perlu menaruh file ke folder `assets/` secara manual).
+
 Data teknisnya tersimpan di tabel `site_content` (satu baris JSON per
-bagian) — lihat `api/_lib/services/contentService.js` jika suatu saat
-perlu diubah lewat kode/SQL langsung.
+bagian konten) dan `content_files` (isi file PDF yang diunggah) — lihat
+`api/_lib/services/contentService.js` jika suatu saat perlu diubah lewat
+kode/SQL langsung.
 
 ## Ringkasan perubahan dari versi asli
 

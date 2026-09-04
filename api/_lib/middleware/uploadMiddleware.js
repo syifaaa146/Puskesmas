@@ -28,6 +28,8 @@ const EXCEL_MIME_TYPES = [
 
 const ATTACHMENT_MIME_TYPES = ["image/jpeg", "image/png", "application/pdf"];
 
+const DOCUMENT_MIME_TYPES = ["application/pdf"];
+
 const excelUpload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: MAX_EXCEL_SIZE_BYTES },
@@ -62,6 +64,19 @@ const attachmentUpload = multer({
   },
 }).single("lampiran");
 
+const documentUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: MAX_ATTACHMENT_SIZE_BYTES },
+  fileFilter(req, file, cb) {
+    if (!DOCUMENT_MIME_TYPES.includes(file.mimetype)) {
+      return cb(
+        new ApiError("Format file tidak sesuai. Hanya file PDF yang diperbolehkan.", 400)
+      );
+    }
+    cb(null, true);
+  },
+}).single("file");
+
 /**
  * Bungkus middleware Multer agar error (ukuran/format file) diteruskan
  * secara konsisten ke errorHandler.js, bukan bocor sebagai stack trace.
@@ -91,4 +106,5 @@ module.exports = {
     attachmentUpload,
     process.env.MAX_ATTACHMENT_FILE_SIZE_MB || 5
   ),
+  documentUpload: wrapMulter(documentUpload, process.env.MAX_ATTACHMENT_FILE_SIZE_MB || 5),
 };

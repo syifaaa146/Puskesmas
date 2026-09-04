@@ -114,6 +114,106 @@
     container.appendChild(wrap);
   }
 
+  /** Upload file PDF (contoh: file akreditasi) — mengunggah lewat API, obj[key] menyimpan URL hasilnya. */
+  function createFileField(container, obj, key, label) {
+    const wrap = document.createElement("div");
+    wrap.className = "mb-3";
+
+    const labelEl = document.createElement("label");
+    labelEl.className = "form-label-brand";
+    labelEl.textContent = label;
+    wrap.appendChild(labelEl);
+
+    const statusEl = document.createElement("div");
+    statusEl.className = "mb-2";
+    wrap.appendChild(statusEl);
+
+    function renderStatus() {
+      statusEl.innerHTML = "";
+      if (obj[key]) {
+        const link = document.createElement("a");
+        link.href = obj[key];
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.className = "me-2";
+        link.innerHTML = '<i class="fa-solid fa-file-pdf me-1"></i> Lihat file saat ini';
+        statusEl.appendChild(link);
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "btn-outline-brand btn-sm-brand";
+        removeBtn.style.borderColor = "#dc3545";
+        removeBtn.style.color = "#dc3545";
+        removeBtn.innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Hapus File';
+        removeBtn.addEventListener("click", () => {
+          obj[key] = "";
+          renderStatus();
+        });
+        statusEl.appendChild(removeBtn);
+      } else {
+        const span = document.createElement("span");
+        span.className = "text-muted small";
+        span.textContent = "Belum ada file diunggah.";
+        statusEl.appendChild(span);
+      }
+    }
+    renderStatus();
+
+    const inputRow = document.createElement("div");
+    inputRow.style.display = "flex";
+    inputRow.style.gap = "8px";
+    inputRow.style.alignItems = "center";
+    inputRow.style.flexWrap = "wrap";
+
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "application/pdf";
+    fileInput.className = "form-control-brand";
+    fileInput.style.maxWidth = "260px";
+
+    const uploadBtn = document.createElement("button");
+    uploadBtn.type = "button";
+    uploadBtn.className = "btn-outline-brand btn-sm-brand";
+    uploadBtn.innerHTML = '<i class="fa-solid fa-upload me-1"></i> Unggah';
+
+    uploadBtn.addEventListener("click", async () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Pilih file PDF terlebih dahulu.");
+        return;
+      }
+      const originalLabel = uploadBtn.innerHTML;
+      uploadBtn.disabled = true;
+      uploadBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Mengunggah...';
+      try {
+        const result = await window.ApiService.uploadContentFile(file);
+        obj[key] = result.url;
+        fileInput.value = "";
+        renderStatus();
+      } catch (err) {
+        if (err && err.status === 401) {
+          redirectToLogin();
+          return;
+        }
+        alert(`Gagal mengunggah file: ${(err && err.message) || "terjadi kesalahan"}`);
+      } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.innerHTML = originalLabel;
+      }
+    });
+
+    inputRow.appendChild(fileInput);
+    inputRow.appendChild(uploadBtn);
+    wrap.appendChild(inputRow);
+
+    const hint = document.createElement("div");
+    hint.className = "text-muted small mt-1";
+    hint.textContent = "Format PDF. Mengunggah file baru akan menggantikan file lama.";
+    wrap.appendChild(hint);
+
+    container.appendChild(wrap);
+  }
+
   /**
    * Daftar objek berulang (contoh: news[], services[]) — setiap item
    * dirender sebagai "kartu" dengan field sesuai fieldDefs, plus tombol
@@ -157,6 +257,8 @@
         fieldDefs.forEach((fd) => {
           if (fd.type === "stringlist") {
             createStringListField(card, item, fd.key, fd.label);
+          } else if (fd.type === "file") {
+            createFileField(card, item, fd.key, fd.label);
           } else {
             createTextField(card, item, fd.key, fd.label, fd.type);
           }
@@ -290,7 +392,7 @@
         { key: "penyelenggara", label: "Penyelenggara", type: "text" },
         { key: "tmt", label: "TMT (contoh: TMT 2023)", type: "text" },
         { key: "berlaku_hingga", label: "Berlaku Hingga (contoh: Berlaku hingga 2026)", type: "text" },
-        { key: "file", label: "Path File PDF (contoh: assets/docs/akreditasi.pdf — kosongkan jika tidak ada)", type: "text" },
+        { key: "file", label: "File PDF Akreditasi/Sertifikat (opsional)", type: "file" },
       ],
       (item, idx) => item.nama || `Akreditasi #${idx + 1}`,
       "Tambah Akreditasi/Sertifikat"

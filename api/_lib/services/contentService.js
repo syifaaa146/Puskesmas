@@ -14,6 +14,7 @@
  */
 const db = require("../config/db");
 const { ApiError } = require("../utils/apiResponse");
+const crypto = require("node:crypto");
 
 const TABLE = "site_content";
 
@@ -115,4 +116,58 @@ async function setSection(section, content) {
   return { section, saved: true };
 }
 
-module.exports = { getAllContent, getSection, setSection, VALID_SECTIONS };
+/* ------------------------------------------------------------------- */
+/* File yang diunggah lewat halaman admin (contoh: PDF akreditasi)      */
+/* ------------------------------------------------------------------- */
+
+/**
+ * Simpan file (PDF) sebagai BLOB di database. Dipakai supaya admin bisa
+ * mengunggah dokumen (misalnya sertifikat akreditasi) langsung dari
+ * halaman "Kelola Konten", tanpa perlu menaruh file ke folder assets/
+ * lewat git push.
+ */
+async function saveContentFile(buffer, originalName, mimeType) {
+  const id = crypto.randomUUID();
+  try {
+    await db.execute({
+      sql: `INSERT INTO content_files (id, original_name, mime_type, file_data) VALUES (?, ?, ?, ?)`,
+      args: [id, originalName, mimeType, buffer],
+    });
+  } catch (error) {
+    throw new ApiError("Gagal menyimpan file.", 500, error.message);
+  }
+  return { id };
+}
+
+/** Ambil kembali file yang tersimpan, untuk disajikan lewat GET /api/content/files/:id. */
+async function getContentFile(id) {
+  let result;
+  try {
+    result = await db.execute({
+      sql: `SELECT original_name, mime_type, file_data FROM content_files WHERE id = ?`,
+      args: [id],
+    });
+  } catch (error) {
+    throw new ApiError("Gagal mengambil file.", 500, error.message);
+  }
+
+  if (!result.rows.length) {
+    throw new ApiError("File tidak ditemukan.", 404);
+  }
+
+  const row = result.rows[0];
+  return {
+    originalName: row.original_name,
+    mimeType: row.mime_type,
+    data: row.file_data,
+  };
+}
+
+module.exports = {
+  getAllContent,
+  getSection,
+  setSection,
+  saveContentFile,
+  getContentFile,
+  VALID_SECTIONS,
+};
